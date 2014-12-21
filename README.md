@@ -20,6 +20,30 @@ yl <-makeCacheMatrix()
 
 [1] "In setM." [1] "in setM" [,1] [,2] [,3] [1,] 3 4 10 [2,] 5 6 6 [3,] 10 2 8
 
+makeVector <- function(x = numeric()) {
+  m <- NULL
+  set <- function(y) {
+    x <<- y
+    m <<- NULL
+  }
+  get <- function() x
+  setmean <- function(mean) m <<- mean
+  getmean <- function() m
+  list(set = set, get = get, setmean = setmean, getmean = getmean)
+}
+
+cachemean <- function(x, ...) {
+  m <- x$getmean()
+  if (!is.null(m)) {
+    message("getting cached data")
+    return(m)
+  }
+  data <- x$get()
+  m <- mean(data, ...)
+  x$setmean(m)
+  m
+}
+
     cacheSolve(yl) [1] "in CacheSolve, xm = " [1] " In invM." [1] "In getM." [1] "In setInvM." [,1] [,2] [,3] [1,] -0.11538462 0.03846154 0.115384615 [2,] -0.06410256 0.24358974 -0.102564103 [3,] 0.16025641 -0.10897436 0.006410256
 
 call cacheSolve(yl) second time -
