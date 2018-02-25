@@ -1,3 +1,15 @@
+## These functions make use of cached results to avoid having to compute 
+## computationally intensive processes like matrix inversion repeatedly.
+## Instead, these two functions below: a. generate a version of an inverted matrix
+## in the cache and then b. recall that matrix from the cache (instead of having
+## to calculate it again).
+
+## The function makeCacheMatrix has essentially four steps, namely that it:
+## 1. sets the values of the matrix, 
+## 2. gets the values of the matrix, 
+## 3. sets the values of the inverse of the matrix, 
+## 4. gets the values of the inverse of the matrix
+
 makeCacheMatrix  <- function(x = matrix()) {
   m <- NULL
   set <- function(y) {
@@ -31,7 +43,7 @@ cacheSolve <- function(x, ...) {
 
 ## Testing
 
-#Defining the matrix T
+#Defining the matrix a
 a <- matrix(c(2:5),2,2)
 
 b <- makeCacheMatrix(a)
